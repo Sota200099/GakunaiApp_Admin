@@ -131,7 +131,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         if(!empty($log)){
             //logデータをソートした連想配列を格納
             $array = Array_Sort($log);
-            var_dump($array);
             //出席率をデータベースに格納
             Insert_Array($pdo_attendance,$num,$subject,$array);
         }else{
@@ -182,6 +181,7 @@ function Insert_Array($pdo,$num,$subject,$array)
     $update_time = $update_time-> format('Y-m-d H:i:s');
 
     foreach($array as $key => $value){
+        //(出席数/コマ数) * 100 小数点以下切り捨て
         $rate = floor(($value/$num) * 100)."%";
         try{
             $stmt = $pdo->prepare($sql);
