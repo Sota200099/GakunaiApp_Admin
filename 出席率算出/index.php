@@ -118,8 +118,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         //フォーマット
         $date = $date->format('Y-m-d');
 
+        //受け取った教科を変数に格納
+        $subject = $_POST['subject'];
+
+        //受け取ったクラスを変数に格納
+        $class = $_POST['class'];
+
         //条件に該当する出席記録をすべて取得
-        $log = Get_Log($pdo_attendance,$date,$_POST['class'],$_POST['subject'],ATTENDANCE);
+        $log = Get_Log($pdo_attendance,$date,$class,$subject,ATTENDANCE);
 
         //logデータがあるか確認
         if(!empty($log)){
@@ -127,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             $array = Array_Sort($log);
             var_dump($array);
             //出席率をデータベースに格納
-            Insert_Array($array);
+            Insert_Array($pdo_attendance,$num,$subject,$array);
         }else{
             $message = "データが見つかりませんでした";
         }
@@ -166,9 +172,25 @@ function Array_Sort($log)
 }
 
 //生徒ごとに出席数を割り出し、データベースに格納
-function Insert_Array($array)
+function Insert_Array($pdo,$num,$subject,$array)
 {
-    
+    //sql
+    $sql = "INSERT INTO attendance_rate VALUES(id,?,?,?,?)";
+
+    //現在時刻を取得
+    $update_time = new DateTime();
+    $update_time = $update_time-> format('Y-m-d H:i:s');
+
+    foreach($array as $key => $value){
+        $rate = floor(($value/$num) * 100)."%";
+        try{
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array($key,$subject,$rate,$update_time));
+        }catch (PDOException $e) {
+            header('Location: error_page.php');
+            exit;
+        }
+    }
 }
 
 ?>
