@@ -133,6 +133,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             $array = Array_Sort($log);
             //出席率をデータベースに格納
             Insert_Array($pdo_attendance,$num,$subject,$array);
+            //画面遷移
+            header('Location: completion.php');  
         }else{
             $message = "データが見つかりませんでした";
         }

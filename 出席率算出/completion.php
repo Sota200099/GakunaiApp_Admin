@@ -11,9 +11,9 @@
 <body>
     <main class="d-flex justify-content-center">
         <div class="w-50 mt-3 p-5 bg-light">
-            <h3 class="h3 mb-3 fw-normal">ここに出席率を出す</h3>
+            <h3 class="h3 mb-3 fw-normal">算出が完了しました</h3>
             <div>
-                <a href="index.php">出席率の算出を続ける<</a>
+                <a href="index.php">出席率の算出を続ける</a>
             </div>
         </div>
 
