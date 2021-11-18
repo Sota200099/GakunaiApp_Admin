@@ -4,8 +4,8 @@
     session_start();
     $logs=[];
     $PAGE_MAX=10;
-    $now_data_max =max_id($pdo)+10;//現在の最大idの取得
-    $page_numbers =ceil($now_data_max/10);
+    //$now_data_max =max_id($pdo)+10;//現在の最大idの取得
+    //$page_numbers =ceil($now_data_max/10);
 
     //現在のページの取得
     if(!isset($_GET["page_num"])){
@@ -13,7 +13,11 @@
     }else{
         $current_page=$_GET["page_num"];
     }
-
+    function get_count($pdo){
+        $sql = "SELECT count(*) as cnt FROM userlog WHERE delete_flag=0";//削除済みでない投稿を全て取得するsql
+        $stmt=$pdo->query($sql);
+        return $stmt->fetch();
+    }
     $paging_id = (($current_page-1)*$PAGE_MAX);//開始indexの作成
 
 
@@ -24,7 +28,8 @@
     while($data =$stmt->fetch()){
         $logs[]=$data;
     }
-
+    $now_data_max =get_count($pdo);//現在の最大idの取得
+    $page_numbers =ceil($now_data_max["cnt"]/10);//最終ページの番号
 
 ?>
 <script src="js/functions.js"></script>

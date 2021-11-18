@@ -1,6 +1,6 @@
 <?php
     function get_posts($pdo,$offset){
-        $sql = "SELECT * FROM userlog WHERE delete_flag=0 ORDER BY id ASC LIMIT 10 OFFSET {$offset}";
+        $sql = "SELECT * FROM userlog WHERE delete_flag=0 ORDER BY id DESC LIMIT 10 OFFSET {$offset}";
         $stmt=$pdo->query($sql);
         return $stmt;
     }
