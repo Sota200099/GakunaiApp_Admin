@@ -24,9 +24,10 @@
     while($data =$stmt->fetch()){
         $logs[]=$data;
     }
-    krsort($logs);
+
 
 ?>
+<script src="js/functions.js"></script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,7 +44,7 @@
     <script src="js/jquery-3.6.0.min.js"></script>   
     <h2 style="text-align:center;" class="mb-5"><a href="./index.php">投稿管理ページ</a></h2>
     <div class="container">
-        <h4 class="mb-4">タイトル</h4>
+        <h4 class="mb-4"><?=$current_page?>ページ目</h4>
         <div class="paging">
             <?php foreach($logs as $value):?>
                 <form action="delete_post.php" method="post">
@@ -51,7 +52,7 @@
                         <div class="mb-5 card">
                         <span class="card-body" style="width:70%;height:20%;font-size: 1.3em;">タイトル：<?=$value["title"]?>　投稿者：<?=$value["name"]?>　<?=$value["date"]?></span>
                         <p class="ml-4" style="font-size: 1.3em;">本文：　<?=$value["text"]?></p>
-                        <button type="submit" class="<?=$value["title"]?> btn btn-outline-dark" value="<?=$value["title"]?>" onclick="input_confirm()">投稿を削除</button>
+                        <button type="submit" class="<?=$value["title"]?> btn btn-outline-dark" value="<?=$value["title"]?>" onclick="return input_confirm()">投稿を削除</button>
                         </div>
                     <?php endif?>
                     <input type="hidden" name="post_title" value="<?=$value["title"]?>,<?=$value["name"]?>,<?=$value["date"]?>">
@@ -112,6 +113,6 @@
 
         <?php echo '<button class="btn btn-primary mr-2 page-item "><a href ="./data_management.php?page_num='.($next).'" style="color:white;">'."次へ".'</a></button>'?>
     </div>
-    <script></script>
+
 </body>
 </html>

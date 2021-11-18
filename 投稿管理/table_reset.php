@@ -17,7 +17,7 @@ require_once "functions.php";
 <body class="bg-lsBlue">
     <div class="container">
         <h3 style="background-color: lightskyblue;">テーブルの初期化</h3>
-        <p class="mt-5">管理者用のテーブル初期化機能</p>
+        <p class="mt-5">掲示板に関連したテーブル初期化</p>
         <form action="reset.php" class="mt-5 float-right">
             <button class="btn btn-primary">テーブルを初期化</button>
         </form>

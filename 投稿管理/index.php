@@ -15,9 +15,9 @@
         <p class="mt-5 mb-4">管理者用のページです。
             
         </p>
-        <button class="btn btn-primary"><a href="data_management.php" style="color: white;">データ管理へ</a></button>
+        <button class="btn btn-primary"><a href="data_management.php" style="color: white;">投稿管理</a></button>
         <br><br>
-        <button class="btn btn-primary"><a href="table_reset.php" style="color: white;">テーブルのリセットへ</a></button>
+        <button class="btn btn-primary"><a href="table_reset.php" style="color: white;">テーブルリセット</a></button>
     </div>
 
 </body>
