@@ -89,7 +89,7 @@
 
     <?php if($db_cnt[0]>0):?>
         <?php $previous = ($current_page-1);$next =($current_page+1);
-            if($previous<1){
+            if($previous<=0){
                 $previous =1;
             }
             if($next>$page_numbers){
@@ -97,19 +97,26 @@
             }
             
             
-            $page_start=$current_page-1;//現在のページの2個前まで
+            $page_start=$current_page-2;//現在のページの2個前まで
             if($page_start<=1){//ページが無いとき
                 $page_start=1;
             }
 
-            $page_amount = $current_page+1;//現在のページから2つ後まで
+            $page_amount = $current_page+2;//現在のページから2つ後まで
             if($page_amount>=$page_numbers){//ページ個数が最大値を超えていたなら
                 $page_amount=$page_numbers;
             }
+            
             if($current_page==1){
+                $page_amount+=2;
+            }
+            if($current_page==2){
                 $page_amount++;
             }
             if($current_page==$page_numbers){
+                $page_start-=2;
+            }
+            if($current_page==$page_numbers-1){
                 $page_start--;
             }
 
