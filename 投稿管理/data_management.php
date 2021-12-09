@@ -35,11 +35,9 @@
         while($data =$stmt->fetch()){
             $logs[]=$data;
         }
-        if($db_cnt[0]%10 !=0){
-            $page_numbers =ceil($db_cnt[0]/10);//最終ページの番号
-        }else{
-            $page_numbers =ceil($db_cnt[0]/10)-1;//最終ページの番号
-        }
+
+        $page_numbers =ceil($db_cnt[0]/10);//最終ページの番号
+
 
 
     }
@@ -99,31 +97,47 @@
             }
             
             
-            $page_start=$current_page-2;//現在のページの2個前まで
-            $page_amount = $current_page+2;//現在のページから2つ後まで
-
-            if($page_start<1){
+            $page_start=$current_page-1;//現在のページの2個前まで
+            if($page_start<=1){//ページが無いとき
                 $page_start=1;
             }
-            if($page_amount>$page_numbers){
+
+            $page_amount = $current_page+1;//現在のページから2つ後まで
+            if($page_amount>=$page_numbers){//ページ個数が最大値を超えていたなら
                 $page_amount=$page_numbers;
             }
-            if($previous<=0){
+            if($current_page==1){
+                $page_amount++;
+            }
+            if($current_page==$page_numbers){
+                $page_start--;
+            }
+
+            /*if($previous<=0){//現在のページが1ページ目のとき
                 $previous=1;
             }
+
             if($next> $page_numbers){
                 $next = $page_numbers;
             }
+
             if($next> $page_numbers && ($page_numbers==0)){
                 $next = 1;
             }
-
-        
-
+            
+            if($current_page<=$page_amount){
+                $page_amount=$current_page;
+            }
+            if($current_page==1){
+                $page_amount+=2;
+            }
+            if($current_page==2){
+                $page_amount++;
+            }*/
 
         ?>
 
-    <div class="pagination container d-flex justify-content-center" style="margin-top: 4%;">
+    <div class="pagination container d-flex justify-content-center mb-5" style="margin-top: 4%;">
         <?php echo '<button class="btn btn-primary mr-5 page-item"><a href ="./data_management.php?page_num='.($previous).'" style="color:white;">'."前へ".'</a></button>'?>
         <div class="buttons" style="text-align: center;">
             <?php for($i=$page_start;$i<=$page_amount;$i++){
@@ -133,7 +147,7 @@
             ?>
         </div>
 
-        <?php echo '<button class="btn btn-primary mr-2 page-item "><a href ="./data_management.php?page_num='.($next).'" style="color:white;">'."次へ".'</a></button>'?>
+        <?php echo '<button class="btn btn-primary mr-2 page-item"><a href ="./data_management.php?page_num='.($next).'" style="color:white;">'."次へ".'</a></button>'?>
     </div>
     <?php endif?>
 </body>
