@@ -41,6 +41,7 @@
 
 
     }
+    $dtl_not_count = get_rows_cnt_notdlt($pdo);
 
 ?>
 <script src="js/functions.js"></script>
@@ -52,7 +53,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
-
     <title>Document</title>
 </head>
 <body class="bg-lsBlue">
@@ -61,8 +61,9 @@
     <h2 style="text-align:center;" class="mb-5"><a href="./index.php">投稿管理ページ</a></h2>
  
         <div class="container">
+        <?php if($db_cnt[0]>0 && $dtl_not_count[0]>0):?>
             <h4 class="mb-4"><?=$current_page?>ページ目</h4>
-            <?php if($db_cnt[0]>0):?>
+
             <div class="paging">
                 <?php foreach($logs as $value):?>
                     <form action="delete_post.php" method="post">
@@ -78,7 +79,7 @@
                 <?php endforeach;?>
             </div>
             <?php endif?>
-            <?php if($db_cnt[0]<=0):?>
+            <?php if($dtl_not_count[0]<=0):?>
                 <p>現在投稿はありません</p>
             <?php endif?>
         </div>
@@ -87,7 +88,7 @@
 
     
 
-    <?php if($db_cnt[0]>0):?>
+    <?php if($db_cnt[0]>0 && $dtl_not_count[0]>0):?>
         <?php $previous = ($current_page-1);$next =($current_page+1);
             if($previous<=0){
                 $previous =1;
@@ -162,6 +163,7 @@
 
         <?php echo '<button class="btn btn-primary mr-2 page-item"><a href ="./data_management.php?page_num='.($next).'" style="color:white;">'."次へ".'</a></button>'?>
     </div>
+
     <?php endif?>
 </body>
 </html>
