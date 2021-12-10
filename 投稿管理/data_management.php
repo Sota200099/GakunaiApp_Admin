@@ -5,18 +5,29 @@
     $logs=[];
     $PAGE_MAX=10;
     $get_count = get_count($pdo);//削除済み投稿を除く
+    $dtl_not_count = get_rows_cnt_notdlt($pdo);
+
     //$now_data_max =max_id($pdo)+10;//現在の最大idの取得
     //$page_numbers =ceil($now_data_max/10);
 
+
+    //ページ番号が送られたとき、表示できるデータが無ければboard.phpにリダイレクト
     //現在のページの取得
     if(!isset($_GET["page_num"])){
+        if($dtl_not_count[0]<=0){
+            header("Location:board.php");
+        }
         $current_page=1;
     }else{
+
         if(intval($_GET["page_num"])<=ceil($get_count[0]/10)){
             $current_page=$_GET["page_num"];
         }else{
             $current_page=ceil($get_count[0]/10);
         }
+    }
+    if($_GET["page_num"]&& $dtl_not_count[0]<=0){
+        header("Location:board.php");
     }
 
     function get_count($pdo){
@@ -41,7 +52,7 @@
 
 
     }
-    $dtl_not_count = get_rows_cnt_notdlt($pdo);
+
 
 ?>
 <script src="js/functions.js"></script>
