@@ -15,7 +15,7 @@
     //現在のページの取得
     if(!isset($_GET["page_num"])){
         if($dtl_not_count[0]<=0){
-            header("Location:board.php");
+            header("Location:index.php");
         }
         $current_page=1;
     }else{
@@ -85,7 +85,7 @@
                     <form action="delete_post.php" method="post">
                         <?php if($value["delete_flag"]==0):?>
                             <div class="mb-5 card">
-                            <span class="card-body" style="width:70%;height:20%;font-size: 1.3em;">タイトル：<?=$value["title"]?>　投稿者：<?=$value["name"]?>　<?=$value["date"]?></span>
+                            <span class="card-body" style="width:100%;height:20%;font-size: 1.3em;">タイトル：<?=$value["title"]?>　投稿者：<?=$value["name"]?>　<?=$value["date"]?></span>
                             <p class="ml-4" style="font-size: 1.3em;">本文：　<?=$value["text"]?></p>
                             <button type="submit" class="<?=$value["title"]?> btn btn-outline-dark" value="<?=$value["title"]?>" onclick="return input_confirm()">投稿を削除</button>
                             </div>
