@@ -26,8 +26,13 @@
             $current_page=ceil($get_count[0]/10);
         }
     }
-    if($_GET["page_num"]&& $dtl_not_count[0]<=0){
-        header("Location:board.php");
+    //不正アクセス制御
+
+    //ページ数より多いか,1より少ないとき
+    if(isset($_GET["page_num"])){
+        if($_GET["page_num"]<1 || $_GET["page_num"]>ceil($get_count[0]/10)){
+            header("Location:index.php");//トップページへリダイレクト
+        }
     }
 
     function get_count($pdo){
@@ -62,12 +67,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
 </head>
 <body class="bg-lsBlue">
-    <script src="js/paginathing.min.js"></script>
+
     <script src="js/jquery-3.6.0.min.js"></script>   
     <h2 style="text-align:center;" class="mb-5"><a href="./index.php">投稿管理ページ</a></h2>
  
