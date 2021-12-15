@@ -29,7 +29,7 @@
     //ページ数より多いか,1より少ないとき
     if(isset($_GET["page_num"])){
         if($_GET["page_num"]<1 || $_GET["page_num"]>ceil($get_count[0]/10)){
-            header("Location:index.php");//トップページへリダイレクト
+            header("Location:data_management.php");
         }
     }
 
