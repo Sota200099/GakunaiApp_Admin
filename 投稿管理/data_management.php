@@ -50,7 +50,7 @@
             $logs[]=$data;
         }
 
-        $page_numbers =ceil($db_cnt[0]/10);//最終ページの番号
+        $page_numbers =($dtl_not_count[0]%10==0)?$dtl_not_count[0]/10:ceil($dtl_not_count[0]/10);//最終ページの番号
 
 
 
