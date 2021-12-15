@@ -10,7 +10,6 @@
     //$now_data_max =max_id($pdo)+10;//現在の最大idの取得
     //$page_numbers =ceil($now_data_max/10);
 
-
     //ページ番号が送られたとき、表示できるデータが無ければboard.phpにリダイレクト
     //現在のページの取得
     if(!isset($_GET["page_num"])){
@@ -19,7 +18,6 @@
         }
         $current_page=1;
     }else{
-
         if(intval($_GET["page_num"])<=ceil($get_count[0]/10)){
             $current_page=$_GET["page_num"];
         }else{
@@ -112,7 +110,7 @@
             if($next>$page_numbers){
                 $next = $page_numbers;
             }
-            
+
             
             $page_start=$current_page-2;//現在のページの2個前まで
             if($page_start<=1){//ページが無いとき
