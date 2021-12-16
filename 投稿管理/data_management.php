@@ -32,7 +32,7 @@
             header("Location:data_management.php");
         }
     }
-
+    
     function get_count($pdo){
         $sql = "SELECT count(*) as cnt FROM userlog WHERE delete_flag=0";//削除済みでない投稿を全て取得するsql
         $stmt=$pdo->query($sql);
