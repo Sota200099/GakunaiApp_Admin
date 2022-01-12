@@ -41,6 +41,29 @@ function unique($pdo, $class)
 
 }
 
+function CreateTable($pdo, $class)
+{
+    // テーブル作成のSQLを作成
+    $sql = 'CREATE TABLE IF NOT EXISTS :class (
+        times_id INT(11) PRIMARY KEY,
+        start_time  DATETIME NOT NULL,
+        ending_time DATETIME NOT NULL,
+        subjects_id_monday VARCHAR(40),
+        subjects_id_tuesday VARCHAR(40),
+        subjects_id_wednesday VARCHAR(40),
+        subjects_id_thursday VARCHAR(40),
+        subjects_id_friday VARCHAR(40),
+        FOREIGN KEY (subjects_id_monday,subjects_id_tuesday,subjects_id_wednesday,subjects_id_thursday,subjects_id_friday)
+        REFERENCES subjects(subject_id) ON DELETE RESTRICT ON UPDATE CASCADE
+    ) engine=innodb default charset=utf8';
+
+    // SQLを実行
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':class', $class, PDO::PARAM_STR);
+    $stmt->execute();
+    return $stmt;
+}
+
 //DB接続
 require_once('Components/connect.php');
 
@@ -57,15 +80,21 @@ $class_id = Get_class_Id($pdo_attendance);
 //postデータを受け取る
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-    //テーブル名チェック
-    $isTableName = unique($pdo_timetable, $_POST['class']);
-    //選択したクラス名のテーブルが既に存在している場合
-    if ($isTableName) {
-        $message = "選択したクラス名のテーブルは既に存在しています";
-    }else{
-        //csv読み込み
+    // //テーブル名チェック
+    // $isTableName = unique($pdo_timetable, $_POST['class']);
+    // //選択したクラス名のテーブルが既に存在している場合
+    // if ($isTableName) {
+    //     $message = "選択したクラス名のテーブルは既に存在しています";
+    // }else{
+        //テーブル作成
+        if(CreateTable($pdo_timetable, $_POST['class'])){
+            $message = "テーブル作成に成功しました";
+            //csv読み込み
+        }else{
+            $message = "テーブル作成に失敗しました";
+        }
 
-    }
+    //}
 }
 
 ?>
@@ -93,6 +122,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 }?>
             </select>
         </div>
+        <p>
+            <input type="file" name="filename" accept=".csv" required/>
+        </p>
         <div class="mt-4">
             <button class="w-100 btn btn-lg btn-primary">作成</button>
         </div>
