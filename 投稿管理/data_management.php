@@ -10,16 +10,14 @@
     //$now_data_max =max_id($pdo)+10;//現在の最大idの取得
     //$page_numbers =ceil($now_data_max/10);
 
-
     //ページ番号が送られたとき、表示できるデータが無ければboard.phpにリダイレクト
     //現在のページの取得
     if(!isset($_GET["page_num"])){
         if($dtl_not_count[0]<=0){
-            header("Location:board.php");
+            header("Location:index.php");
         }
         $current_page=1;
     }else{
-
         if(intval($_GET["page_num"])<=ceil($get_count[0]/10)){
             $current_page=$_GET["page_num"];
         }else{
@@ -31,10 +29,10 @@
     //ページ数より多いか,1より少ないとき
     if(isset($_GET["page_num"])){
         if($_GET["page_num"]<1 || $_GET["page_num"]>ceil($get_count[0]/10)){
-            header("Location:index.php");//トップページへリダイレクト
+            header("Location:data_management.php");
         }
     }
-
+    
     function get_count($pdo){
         $sql = "SELECT count(*) as cnt FROM userlog WHERE delete_flag=0";//削除済みでない投稿を全て取得するsql
         $stmt=$pdo->query($sql);
@@ -52,7 +50,7 @@
             $logs[]=$data;
         }
 
-        $page_numbers =ceil($db_cnt[0]/10);//最終ページの番号
+        $page_numbers =($dtl_not_count[0]%10==0)?$dtl_not_count[0]/10:ceil($dtl_not_count[0]/10);//最終ページの番号
 
 
 
@@ -85,7 +83,7 @@
                     <form action="delete_post.php" method="post">
                         <?php if($value["delete_flag"]==0):?>
                             <div class="mb-5 card">
-                            <span class="card-body" style="width:70%;height:20%;font-size: 1.3em;">タイトル：<?=$value["title"]?>　投稿者：<?=$value["name"]?>　<?=$value["date"]?></span>
+                            <span class="card-body" style="width:100%;height:20%;font-size: 1.3em;">タイトル：<?=$value["title"]?>　投稿者：<?=$value["name"]?>　<?=$value["date"]?></span>
                             <p class="ml-4" style="font-size: 1.3em;">本文：　<?=$value["text"]?></p>
                             <button type="submit" class="<?=$value["title"]?> btn btn-outline-dark" value="<?=$value["title"]?>" onclick="return input_confirm()">投稿を削除</button>
                             </div>
@@ -112,7 +110,7 @@
             if($next>$page_numbers){
                 $next = $page_numbers;
             }
-            
+
             
             $page_start=$current_page-2;//現在のページの2個前まで
             if($page_start<=1){//ページが無いとき

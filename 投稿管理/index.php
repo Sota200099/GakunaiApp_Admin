@@ -12,12 +12,21 @@
 <body class="bg-lsBlue">
     <div class="container">
         <h2>管理機能一覧</h2>
-        <p class="mt-5 mb-4">管理者用のページです。
-            
-        </p>
-        <button class="btn btn-primary"><a href="data_management.php" style="color: white;">投稿管理</a></button>
-        <br><br>
-        <button class="btn btn-primary"><a href="table_reset.php" style="color: white;">テーブルリセット</a></button>
+        <div>
+                    <p class="mt-5 mb-5">管理者用のページです。 </p>
+                    <p class="mt-5 pb-4">
+                        投稿管理：現在の投稿を削除出来ます。 
+                       <button type="button" class="btn btn-primary float-right mr-5 mt-4"><a href="data_management.php" style="color: white;">投稿管理</a></button>
+
+                    </p>
+                    <p class="mt-5 pb-4">
+                        テーブルリセット：データベースを初期化します。
+                        不具合が起きた際のみ使用。
+                        <button type="button" class="btn btn-primary float-right mr-5 mt-4"><a href="table_reset.php" style="color: white;">リセット</a></button>
+                    </p>
+        </div>
+
+
     </div>
 
 </body>
