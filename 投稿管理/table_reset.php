@@ -1,7 +1,7 @@
 <?php
 
-require_once "connect.php";
-require_once "functions.php";
+require_once "./components/connect.php";
+require_once "./components/functions.php";
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +14,7 @@ require_once "functions.php";
     <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
 </head>
-<body class="bg-lsBlue">
+<body class="mt-5">
     <div class="container">
         <h3>テーブルの初期化</h3>
         <p class="mt-5">掲示板に関連したテーブル初期化</p>

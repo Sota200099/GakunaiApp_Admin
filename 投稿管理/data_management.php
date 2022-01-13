@@ -1,6 +1,6 @@
 <?php
-    require_once "connect.php";
-    require_once "functions.php";
+    require_once "./components/connect.php";
+    require_once "./components/functions.php";
     session_start();
     $logs=[];
     $PAGE_MAX=10;
@@ -69,7 +69,7 @@
     <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
 </head>
-<body class="bg-lsBlue">
+<body class="mt-5">
 
     <script src="js/jquery-3.6.0.min.js"></script>   
     <h2 style="text-align:center;" class="mb-5"><a href="./index.php">投稿管理ページ</a></h2>
