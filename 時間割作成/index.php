@@ -65,6 +65,18 @@ function CreateTable($pdo, $class)
     return $stmt;
 }
 
+function InportCsv($pdo,$class,$aaa)
+{
+    try{
+        $sql = "INSERT INTO {$class} VALUES(\"$aaa\");";
+        // SQLを実行
+        $stmt = $pdo->query($sql);
+    }catch (PDOException $e) {
+        header('Location: error_page.php');
+        exit;
+    }
+}
+
 //DB接続
 require_once('Components/connect.php');
 
@@ -81,20 +93,33 @@ $class_id = Get_class_Id($pdo_attendance);
 //postデータを受け取る
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
+    var_dump($_FILES);
+    $class = $_POST['class'];
     //テーブル名チェック
-    $isTableName = unique($pdo_timetable, $_POST['class']);
+    $isTableName = unique($pdo_timetable, $class);
     //選択したクラス名のテーブルが既に存在している場合
     if ($isTableName) {
         $message = "選択したクラス名のテーブルは既に存在しています";
     }else{
         //テーブル作成
-        if(CreateTable($pdo_timetable, $_POST['class'])){
-            $message = "テーブル作成に成功しました";
-            //csv読み込み
-        }else{
-            $message = "テーブル作成に失敗しました";
+        CreateTable($pdo_timetable, $class);
+        $message = "テーブル作成に成功しました";
+        //fopen()関数で、ファイルを開く。"r"で「読み込み専用」という指示。
+        $tmp = fopen($_FILES['csvfile']['tmp_name'], "r");
+        //2次元配列にする。fgetcsv()関数により、csvデータを読み込む。
+        while ($csv[] = fgetcsv($tmp, "1024")) {}
+        //文字化け防止のため、配列 $csv の文字コードをSJIS-winからUTF-8に変換
+        mb_convert_variables("UTF-8", "SJIS-win", $csv);
+        $lim = count($csv);//for文で読み込むために、配列の最大行数を出す
+        for($i=0; $i<=$lim; $i++){
+            if($i < ($lim-1)){
+                $ar = $csv[$i];
+                $aaa = implode("\",\"", $ar);
+            }
         }
-
+        //csvインポート
+        InportCsv($pdo_timetable,$class,$aaa);
+        $message = "テーブル作成に失敗しました";
     }
 }
 
@@ -110,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <title>時間割作成</title>
 </head>
 <body>
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         <div class="error_message">
             <?= $message ?>
         </div> 
@@ -124,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             </select>
         </div>
         <p>
-            <input type="file" name="filename" accept=".csv" required/>
+            <input type="file" name="csvfile" enctype="multipart/form-data" accept=".csv" required/>
         </p>
         <div class="mt-4">
             <button class="w-100 btn btn-lg btn-primary">作成</button>
