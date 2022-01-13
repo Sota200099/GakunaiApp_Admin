@@ -44,7 +44,7 @@ function unique($pdo, $class)
 function CreateTable($pdo, $class)
 {
     // テーブル作成のSQLを作成
-    $sql = 'CREATE TABLE IF NOT EXISTS :class (
+    $sql = "CREATE TABLE IF NOT EXISTS {$class} (
         times_id INT(11) PRIMARY KEY,
         start_time  DATETIME NOT NULL,
         ending_time DATETIME NOT NULL,
@@ -53,14 +53,15 @@ function CreateTable($pdo, $class)
         subjects_id_wednesday VARCHAR(40),
         subjects_id_thursday VARCHAR(40),
         subjects_id_friday VARCHAR(40),
-        FOREIGN KEY (subjects_id_monday,subjects_id_tuesday,subjects_id_wednesday,subjects_id_thursday,subjects_id_friday)
-        REFERENCES subjects(subject_id) ON DELETE RESTRICT ON UPDATE CASCADE
-    ) engine=innodb default charset=utf8';
+        FOREIGN KEY (subjects_id_monday) REFERENCES subjects(subject_id) ON DELETE RESTRICT ON UPDATE CASCADE,
+        FOREIGN KEY (subjects_id_tuesday) REFERENCES subjects(subject_id) ON DELETE RESTRICT ON UPDATE CASCADE,
+        FOREIGN KEY (subjects_id_wednesday) REFERENCES subjects(subject_id) ON DELETE RESTRICT ON UPDATE CASCADE,
+        FOREIGN KEY (subjects_id_thursday) REFERENCES subjects(subject_id) ON DELETE RESTRICT ON UPDATE CASCADE,
+        FOREIGN KEY (subjects_id_friday) REFERENCES subjects(subject_id) ON DELETE RESTRICT ON UPDATE CASCADE
+    ) engine=innodb charset=utf8mb4";
 
     // SQLを実行
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':class', $class, PDO::PARAM_STR);
-    $stmt->execute();
+    $stmt = $pdo->query($sql);
     return $stmt;
 }
 
@@ -80,12 +81,12 @@ $class_id = Get_class_Id($pdo_attendance);
 //postデータを受け取る
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-    // //テーブル名チェック
-    // $isTableName = unique($pdo_timetable, $_POST['class']);
-    // //選択したクラス名のテーブルが既に存在している場合
-    // if ($isTableName) {
-    //     $message = "選択したクラス名のテーブルは既に存在しています";
-    // }else{
+    //テーブル名チェック
+    $isTableName = unique($pdo_timetable, $_POST['class']);
+    //選択したクラス名のテーブルが既に存在している場合
+    if ($isTableName) {
+        $message = "選択したクラス名のテーブルは既に存在しています";
+    }else{
         //テーブル作成
         if(CreateTable($pdo_timetable, $_POST['class'])){
             $message = "テーブル作成に成功しました";
@@ -94,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             $message = "テーブル作成に失敗しました";
         }
 
-    //}
+    }
 }
 
 ?>
