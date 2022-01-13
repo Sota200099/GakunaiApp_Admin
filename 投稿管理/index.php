@@ -9,7 +9,7 @@
 
     <title>Document</title>
 </head>
-<body class="bg-lsBlue">
+<body class = "mt-5">
     <div class="container">
         <h2>管理機能一覧</h2>
         <div>
