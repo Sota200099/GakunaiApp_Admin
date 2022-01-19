@@ -132,11 +132,15 @@
             if($page_numbers==2){
                 $page_amount=3;
             }
-            if($current_page<=3){
+            if($current_page<=4){
                 $page_start=1;
-                $page_amount=5;//基本ページ表示数に固定
-        
-            }if($current_page==$page_numbers){
+                if($page_numbers<=4){
+                    $page_amount = $page_numbers;
+                }else{
+                    $page_amount=5;//基本ページ表示数に固定
+                }
+            }
+            if($current_page==$page_numbers){
                 $page_amount = $page_numbers;
             }
             /*
