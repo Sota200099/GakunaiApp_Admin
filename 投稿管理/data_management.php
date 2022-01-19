@@ -130,16 +130,24 @@
                 $page_amount=1;
             }
             if($page_numbers==2){
-                $page_amount=2;
+                $page_amount=3;
             }
-            if($current_page>=3){
+            if($current_page<=3){
+                $page_start=1;
+                $page_amount=5;//基本ページ表示数に固定
+        
+            }if($current_page==$page_numbers){
+                $page_amount = $page_numbers;
+            }
+            /*
+            if($current_page>3){
                 if($current_page==$page_numbers){
                     $page_start-=2;
                 }
                 if($current_page==$page_numbers-1){
                     $page_start--;
                 }
-            }
+            }*/
 
             /*if($previous<=0){//現在のページが1ページ目のとき
                 $previous=1;
