@@ -121,7 +121,12 @@
             if($page_amount>=$page_numbers){//ページ個数が最大値を超えていたなら
                 $page_amount=$page_numbers;
             }
-            
+            if($current_page==$page_numbers){
+                $page_start-=2;
+            }
+            if($current_page==$page_numbers-1){
+                $page_start--;
+            }
             if($current_page==1){
                 $page_amount+=2;
         
