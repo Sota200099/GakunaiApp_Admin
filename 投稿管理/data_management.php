@@ -205,7 +205,7 @@
         <div class="buttons" style="text-align: center;">
             <?php for($i=$page_start;$i<=$page_amount;$i++){
                 if($i==$current_page){
-                    echo '<button class="btn btn-primary mr-5 page-item disabled"><a href ="./data_management.php?page_num='.$i.'" style="color:white;">'.$i.'</a></button>';
+                    echo '<button class="btn btn-primary mr-5 page-item disabled" disabled>'.$i.'</button>';
                 }else{
                     echo '<button class="btn btn-primary mr-5 page-item"><a href ="./data_management.php?page_num='.$i.'" style="color:white;">'.$i.'</a></button>';
                 }
