@@ -7,6 +7,10 @@
     $get_count = get_count($pdo);//削除済み投稿を除く
     $dtl_not_count = get_rows_cnt_notdlt($pdo);
 
+    //ページ遷移
+    if(!isset($_SESSION["delete"])){//変数が存在していない時
+        $_SESSION["delete"]=false;//初期化
+    }
     //$now_data_max =max_id($pdo)+10;//現在の最大idの取得
     //$page_numbers =ceil($now_data_max/10);
 
@@ -24,6 +28,14 @@
             $current_page=ceil($get_count[0]/10);
         }
     }
+
+    if($_SESSION["delete"]){
+        $current_page = $_SESSION["current_page"];
+        $_SESSION["current_page"]="";
+        $_SESSION["delete"]=false;
+    }
+    $_SESSION["current_page"]=$current_page;//現在のページをセッションに追加
+
     //不正アクセス制御
 
     //ページ数より多いか,1より少ないとき

@@ -1,5 +1,6 @@
 <?php
     require_once "./components/connect.php";
+    session_start();
     if($_SERVER["REQUEST_METHOD"] != "POST"){
         header("Location:error.php");
     }
@@ -20,8 +21,8 @@
 
 
         
-
-        header("location:data_management.php");
+        $_SESSION["delete"]=true;//削除フラグをtrue
+        header("location:data_management.php?page_num={$_SESSION["current_page"]}");
     }
 
 
