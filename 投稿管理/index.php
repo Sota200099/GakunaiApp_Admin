@@ -10,10 +10,10 @@
     <title>Document</title>
 </head>
 <body class = "mt-5">
-    <div class="container">
+    <div class="container bg-light pt-4 pb-5">
         <h2>管理機能一覧</h2>
         <div>
-                    <p class="mt-5 mb-5">管理者用のページです。 </p>
+
                     <p class="mt-5 pb-4">
                         投稿管理：現在の投稿を削除出来ます。 
                        <button type="button" class="btn btn-primary float-right mr-5 mt-4"><a href="data_management.php" style="color: white;">投稿管理</a></button>

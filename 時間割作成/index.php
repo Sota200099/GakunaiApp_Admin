@@ -133,26 +133,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <title>時間割作成</title>
 </head>
 <body>
-    <form action="" method="post" enctype="multipart/form-data">
-        <div class="error_message">
-            <?= $message ?>
-        </div> 
-        <div class="mt-2" name="class" id="class">
-            <label>学科・クラス</label>        
-            <select name="class" class="form-control" required>
-                <option value="" hidden>選択してください</option>
-                <?php for($i = 0; $i < count($class_id); $i++){
-                    echo "<option>{$class_id[$i]["class_id"]}</option>";
-                }?>
-            </select>
-        </div>
-        <p>
-            <input type="file" name="csvfile" enctype="multipart/form-data" accept=".csv" required/>
-        </p>
-        <div class="mt-4">
-            <button class="w-100 btn btn-lg btn-primary">作成</button>
-        </div>
-    </form>    
+    <div class="container bg-light">
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="error_message">
+                <?= $message ?>
+            </div> 
+            <h2 class="mt-4 mb-5 pt-5">時間割作成</h2>
+            <div class="mt-2 mb-3" name="class" id="class">
+                <label class="font-weight-bold mb-4">学科・クラス</label>        
+                <select name="class" class="form-control" required>
+                    <option value="" hidden>選択してください</option>
+                    <?php for($i = 0; $i < count($class_id); $i++){
+                        echo "<option>{$class_id[$i]["class_id"]}</option>";
+                    }?>
+                </select>
+            </div>
+            <p>
+                <input type="file" name="csvfile" enctype="multipart/form-data" accept=".csv" required/>
+            </p>
+            <div class="mt-5 pt-5 pb-5">
+                <button class="w-100 btn btn-lg btn-primary">作成</button>
+            </div>
+        </form>    
+    </div>
 </body>
 
 </html>
