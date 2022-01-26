@@ -9,8 +9,8 @@
 
     <title>Document</title>
 </head>
-<body class = "mt-5">
-    <div class="container bg-light pt-4 pb-5">
+<body class = "mt-5 bg-light">
+    <div class="container pt-4 pb-5">
         <h2>管理機能一覧</h2>
         <div>
 

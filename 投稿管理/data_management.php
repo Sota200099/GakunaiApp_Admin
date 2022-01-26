@@ -22,10 +22,13 @@
         }
         $current_page=1;
     }else{
+        if(!intval($_GET["page_num"])){
+            header("Location:data_management.php");
+        }
         if(intval($_GET["page_num"])<=ceil($get_count[0]/10)){
-            $current_page=$_GET["page_num"];
+            $current_page=(int)$_GET["page_num"];
         }else{
-            $current_page=ceil($get_count[0]/10);
+            $current_page=(int)ceil($get_count[0]/10);
         }
     }
 
@@ -81,7 +84,7 @@
     <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
 </head>
-<body class="mt-5">
+<body class="container bg-light">
 
     <script src="js/jquery-3.6.0.min.js"></script>   
     <h2 style="text-align:center;" class="mb-5"><a href="./index.php">投稿管理ページ</a></h2>

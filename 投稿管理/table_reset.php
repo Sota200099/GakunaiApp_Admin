@@ -14,10 +14,10 @@ require_once "./components/functions.php";
     <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
 </head>
-<body class="mt-5">
-    <div class="container bg-light pt-4 mb-5" style="padding-bottom:10% ;">
-        <h3>テーブルの初期化</h3>
-        <p class="mt-5 pb-5">掲示板に関連したテーブル初期化</p>
+<body class="mt-5 bg-light">
+    <div class="container bg-light pt-4 mb-5">
+        <h3 >テーブルの初期化</h3>
+        <p class="mt-5 pb-5 ">掲示板に関連したテーブル初期化</p>
         <form action="reset.php" class="mt-5 float-right">
             <button class="btn btn-primary">テーブルを初期化</button>
         </form>
