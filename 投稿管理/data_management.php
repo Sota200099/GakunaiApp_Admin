@@ -11,12 +11,10 @@
     if(!isset($_SESSION["delete"])){//変数が存在していない時
         $_SESSION["delete"]=false;//初期化
     }
-    //$now_data_max =max_id($pdo)+10;//現在の最大idの取得
-    //$page_numbers =ceil($now_data_max/10);
 
     //ページ番号が送られたとき、表示できるデータが無ければboard.phpにリダイレクト
     //現在のページの取得
-    if(!isset($_GET["page_num"])){
+    if(!isset($_GET["page_num"])){//ページ番号が指定されていない場合
         if($dtl_not_count[0]<=0){
             header("Location:index.php");
         }
@@ -169,37 +167,6 @@
             if($current_page==$page_numbers){
                 $page_amount = $page_numbers;
             }
-            /*
-            if($current_page>3){
-                if($current_page==$page_numbers){
-                    $page_start-=2;
-                }
-                if($current_page==$page_numbers-1){
-                    $page_start--;
-                }
-            }*/
-
-            /*if($previous<=0){//現在のページが1ページ目のとき
-                $previous=1;
-            }
-
-            if($next> $page_numbers){
-                $next = $page_numbers;
-            }
-
-            if($next> $page_numbers && ($page_numbers==0)){
-                $next = 1;
-            }
-            
-            if($current_page<=$page_amount){
-                $page_amount=$current_page;
-            }
-            if($current_page==1){
-                $page_amount+=2;
-            }
-            if($current_page==2){
-                $page_amount++;
-            }*/
 
         ?>
 

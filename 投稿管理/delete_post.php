@@ -14,8 +14,8 @@
         $stmt = $pdo->prepare($sql);
         $stmt->execute([":title" => $delete_post[0], ":name" => $delete_post[1], ":date" => $delete_post[2]]);
         //返信の削除
-        $sql ="update reply SET delete_flag=1 
-        WHERE :title = title AND :name=name AND :distinationDate = distinationDate";
+        $sql ="update reply SET delete_flag=1
+        WHERE :title = title AND :name=name AND :distinationDate = distinationDate";//対象のデータのdelete_flagをtrueに変更
         $stmt = $pdo->prepare($sql);
         $stmt->execute([":title" => $delete_post[0], ":name" => $delete_post[1], ":distinationDate" => $delete_post[2]]);
 
